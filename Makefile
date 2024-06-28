@@ -11,15 +11,15 @@ help:
 
 createSudoersFile: ## Creates the sudoers file
 	@echo "Creating sudoers file"
-	@source ./common.sh && createSudoersFile > /dev/null 2>&1
+	@source ./common.sh && createSudoersFile
 
 installCloudProviderKind: ## Install cloud-provider-kind
 	@echo "Install cloud-provider-kind"
-	@source ./common.sh && installCloudProviderKind > /dev/null 2>&1
+	@source ./common.sh && installCloudProviderKind
 
 build: ## Builds the tray application
 	@echo "Building tray application"
-	@go build -v -o "$(GOPATH)/bin/cloud-provider-kind-tray" main.go > /dev/null 2>&1
+	@source ./common.sh && installCloudProviderKindTray
 
 install: installCloudProviderKind createSudoersFile build ## Installs the tray application
 

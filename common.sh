@@ -15,11 +15,13 @@ function installCloudProviderKind {
         pushd cloud-provider-kind
             make build
             chmod +x bin/cloud-provider-kind
-            mv bin/cloud-provider-kind $GOPATH/bin
+            outputDir=$(go env GOPATH)/bin
+            mv bin/cloud-provider-kind $outputDir
         popd
     popd
 }
 
 function installCloudProviderKindTray {
-    go build -v -o "$GOPATH/bin/cloud-provider-kind-tray" main.go
+    outputDir=$(go env GOPATH)/bin
+    go build -v -o "$outputDir/cloud-provider-kind-tray" main.go
 }

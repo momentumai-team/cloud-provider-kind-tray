@@ -6,8 +6,6 @@ Tray application to allow seeing and using load balancers created on kind cluste
 
 - Leverages [cloud-provider-kind](https://github.com/kubernetes-sigs/cloud-provider-kind) to enable kind clusters to have load balancers. A fork of this is installed awaiting acceptance of a [PR](https://github.com/kubernetes-sigs/cloud-provider-kind/pull/99).
 
-- Must have go installed and GOPATH set
-
 ## Installation
 
 This will ask for your password to install the application as must create a sudoers file entry to ensure application can be run as root.
