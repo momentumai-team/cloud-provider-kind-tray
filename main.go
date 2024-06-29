@@ -2,11 +2,12 @@ package main
 
 import (
 	"bufio"
+	"embed"
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/fs"
 	"log"
-	"os"
 	"os/exec"
 	"strings"
 
@@ -19,6 +20,9 @@ import (
 var loadBalancerMenuItems = []*systray.MenuItem{}
 var loadBalancersInUse = map[string]*systray.MenuItem{}
 
+//go:embed assets/load-balancer.png
+var imageFS embed.FS
+
 func main() {
 	onExit := func() {
 	}
@@ -28,7 +32,11 @@ func main() {
 func onReady() {
 	var cmd *exec.Cmd
 	var err error
-	systray.SetIcon(getIcon("assets/load-balancer.png"))
+	data, err := fs.ReadFile(imageFS, "assets/load-balancer.png")
+	if err != nil {
+		log.Fatal(err)
+	}
+	systray.SetIcon(data)
 	systray.SetTooltip("Cloud Provider Kind Loadbalancer")
 
 	mStartOrig := systray.AddMenuItem("Start", "Start Kind Loadbalancer")
@@ -237,12 +245,4 @@ func doesItemExistInMap(menuItem *systray.MenuItem) bool {
 		}
 	}
 	return false
-}
-
-func getIcon(s string) []byte {
-	b, err := os.ReadFile(s)
-	if err != nil {
-		fmt.Print(err)
-	}
-	return b
 }
